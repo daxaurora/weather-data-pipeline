@@ -11,7 +11,7 @@ This is a work in progress and new components and platforms will be added regula
 `data` holds raw data. Sample daily files are in `sample` subdirectory  
 `dbdata` holds the Postgres database (empty before first initializing database)  
 `documentation` holds detailed information and instructions  
-`logs` holds runtime logs and/or error reports  
+`logs` holds runtime logs and/or error reports  (may not exist if empty)  
 `scripts`  holds scripts used in the pipeline  
 
 ## Quickstart
@@ -33,19 +33,23 @@ echo 'POSTGRES_USER=weatherdata' > .env
 echo 'POSTGRES_PASSWORD=[your_password]' >> .env
 echo '*:*:*:weatherdata:[your_password]' > .pgpass
 ```
-4. Start the pipeline.
+4. Create an empty `dbdata` directory to hold the Postgres database.
+```
+mkdir dbdata
+```
+5. Start the pipeline.
 ```
 docker compose up -d
 ```
 The Postgres container will take a few minutes to be ready to accept incoming connections. If the next step loading data returns a `Connection refused` error, wait a few minutes and try again.
 
-5. Load sample data into Postgres.  This may take a minute or two. This script will report loading each weather element from each file.
+6. Load sample data into Postgres.  This may take a minute or two. This script will report loading each weather element from each file.
 ```
  docker compose exec python_service python \
  scripts/py/load_sample_data.py
 ```
 
-6. To connect to Postgres container to execute SQL queries via a psql prompt:
+7. To connect to Postgres container to execute SQL queries via a psql prompt:
  ```
  docker compose exec postgres_service \
  psql -h postgres_service -U weatherdata \
@@ -56,7 +60,7 @@ The Postgres container will take a few minutes to be ready to accept incoming co
  \q
  ```
 
-7. To connect to Python container via python interpreter:
+8. To connect to Python container via python interpreter:
 ```
 docker compose exec python_service python
 ```
@@ -65,7 +69,7 @@ To quit:
 exit()
 ```
 
-8. Shut it down
+9. Shut it down
 ```
 docker compose down
 ```
