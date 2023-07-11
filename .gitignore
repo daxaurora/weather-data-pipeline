@@ -1,0 +1,19 @@
+# Password files #
+.env
+.pgpass
+
+# Postgres database storage #
+/dbdata/*
+
+# Local development files and folders#
+/experiments
+/scripts/dev
+ToDoNext.md
+
+# Compressed files #
+*.gz
+*.zip
+
+# OS generated files #
+.DS_Store
+.DS_Store?

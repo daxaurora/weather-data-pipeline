@@ -1,0 +1,55 @@
+version: '2.17.2'
+
+services:
+  raw_data:
+    image: debian:11
+    container_name: raw_data
+    volumes:
+      - type: bind
+        source: $PWD/data
+        target: /data
+
+  postgres_service:
+    build:
+      context: .
+      dockerfile: ./builds/postgres/Dockerfile
+    container_name: postgres_service
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    depends_on:
+      - raw_data
+    volumes_from:
+      - raw_data:ro
+    volumes:
+      - type: bind
+        source: $PWD/dbdata
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: $PWD/scripts
+        target: /scripts
+
+  python_service:
+    build: ./builds/python
+    container_name: python_service
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - raw_data
+      - postgres_service
+    volumes_from:
+      - raw_data:ro
+    volumes:
+      - type: bind
+        source: $PWD/dbdata
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: $PWD/scripts
+        target: /scripts
+    stdin_open: true
+    tty: true
