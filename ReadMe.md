@@ -20,9 +20,9 @@ Confirm the requirements are met and follow the instructions below to run this d
 
 
 ##### Requirements
-**OS**: This pipeline has been tested on macOS Monterey on a MacBook Pro
-**Docker** [Install Docker](https://docs.docker.com/engine/install/)  
-**Git** [Install Git](https://github.com/git-guides/install-git)  
+**OS**: This pipeline has been tested on macOS Monterey on a MacBook Pro<br>
+**Docker**  [Install Docker](https://docs.docker.com/engine/install/)<br>
+**Git**  [Install Git](https://github.com/git-guides/install-git)<br>
 
 
 1. Clone this repo to anywhere on your local machine.
