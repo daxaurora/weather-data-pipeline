@@ -7,6 +7,8 @@ These files cannot be committed to public github repo unless `.gitignore` is exp
 
 Entering passwords is only necessary once with the instructions in this repo's ReadMe file, unless the `.env` and `.pgpass` files are deleted.
 
+Note that the password is also stored in the Docker Postgres image created for this pipeline. So if the password is changed in the .env and .pgpass file after first creating those files and starting the pipeline, that Postgres Docker image will need to be deleted and the pipeline restarted with docker compose. 
+
 Postgres does have an option to turn off the password requirement, but that's not a best practice and hasn't been tested in this pipeline.
 
 ### Initializing Postgres
