@@ -3,4 +3,10 @@ theme: jekyll-theme-cayman
 titles_from_headings:
   enabled:     true
   strip_title: true
-  collections: true 
+  collections: true
+
+defaults:
+  -
+    values:
+      image:
+        path: /img/WeatherPipeline.png
